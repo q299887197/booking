@@ -24,7 +24,7 @@
           <tr>
             <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">是否可攜伴</font></td>
             <td valign="baseline" bgcolor="#FFFFFF">
-              <input type=radio value="PartnerNO" name="Partner" id="PartnerNO"><font color="red"> 不能</font>
+              <input type=radio value="PartnerNO" name="Partner" id="PartnerNO" checked ><font color="red"> 不能</font>  <!-- checked 為預設選項 -->
               <input type=radio value="PartnerOK" name="Partner" id="PartnerOK"><font color="red"> 可以</font>
               <script type="text/javascript" src="">
                   var OKorNO = document.getElementsByName("Partner").value; 
