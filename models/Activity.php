@@ -11,6 +11,33 @@ class Activity {
     }
     
     ///=================================================================
+    ////  用id編號 查活動資訊   SELECT
+    ///=================================================================
+    function SelectActivityID($id){
+        $dbh = $this->dbh ;
+        $slet = $dbh->prepare("SELECT * FROM `NewActivity` WHERE `id` = :ActivityID");
+        $slet->bindParam(':ActivityID', $id);
+        $slet->execute();
+        $dbh = null;
+        
+        return $slet->fetchAll();
+    }
+    
+    ///=================================================================
+    ////  用 查可以參加的人   SELECT
+    ///=================================================================
+    function SelectActivity($id){
+        $dbh = $this->dbh ;
+        $slet = $dbh->prepare("SELECT * FROM `JoinPeople` WHERE `ActivityID` = :AID");
+        $slet->bindParam(':AID', $id);
+        $slet->execute();
+        $dbh = null;
+        
+        return $slet->fetchAll();
+    }
+
+ 
+    ///=================================================================
     ////  新增活動資訊 再查詢本次新增內容  INSERT  and  SELECT
     ///=================================================================
     function InsertActivity($ActivityName,$MaxPeople,$MaxPartner=0,$StartTime,$EndTime){
@@ -49,10 +76,13 @@ class Activity {
             $sth->bindParam(2, $resultName);
             $sth->bindParam(3, $resultConrent[$i]);
             // $dbh = null;
-            $sth->execute();
+            $result = $sth->execute();
             $i++;
+            if($result)
+                return $data['alert'] = "新增成功";
+            else
+                return $data['alert'] = "新增失敗";
         }
-        
     }
     
     

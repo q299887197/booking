@@ -25,14 +25,6 @@ class NewController extends Controller
 
         $Insert = $this->model("Activity");
         $result = $Insert->InsertActivity($ActivityName,$MaxPeople,$MaxPartner,$StartTime,$EndTime);
-        // foreach ($result as $data);
-        // $data["id"] = $result[0];
-        // $data["ActivityName"] = $result[1];
-        // $data["MaxPeople"] = $result[2];
-        // $data["MaxPartner"] = $result[3];
-        // $data["StartTime"] = $result[4];
-        // $data["EndTime"] = $result[5];
-
         $this->view("activityPeople",$result);
     }
     
@@ -47,25 +39,43 @@ class NewController extends Controller
     
     
     function NewPersonnel(){
-        $resultName = $_POST['name'];
-        $resultConrent = $_POST['content'];
-        $resultActivityID = $_POST['ActivityID'];
-        
-        
         $IntPeople = $this->model("Activity");
-        $IntPeople -> InsertPeople($resultName,$resultConrent,$resultActivityID);
-        
-        var_dump($resultName);
-        echo "<br><br><br><br><br><br>";
-        var_dump($resultConrent);
-        echo "<br><br><br><br><br><br>";
-        var_dump($resultActivityID);
-        exit;
-        
-        
-        
+        $result = $IntPeople -> InsertPeople($_POST['name'],$_POST['content'],$_POST['ActivityID']);
+        $data['alert'] = $result['alert'];
+        $this->view("activityPeople",$data);
         
     }
+    
+    ///=================================================================
+    ////  顯示資料
+    ///================================================================= 
+    
+    function ShowActivity(){
+        $SelectActivity = $this->model("Activity");
+        $resultActivity = $SelectActivity->SelectActivityID(29);
+        $result = $SelectActivity->SelectActivity(29);
+        
+        foreach($resultActivity as $data);
+        $data['id'] = $data[0];
+        $data['ActivityName'] = $data[1];
+        $data['MaxPeople'] = $data[2];
+        $data['MaxPartner'] = $data[3];
+        $data['StartTime'] = $data[4];
+        $data['EndTime'] = $data[5];
+        $data['ActivityURL'] = $data[6];
+        $data['join'] = $result;
+
+        // foreach($resultJoin as $data){
+        //     $data[''] = $resultJoin[1];
+        //     $data[''] = $resultJoin[2];
+        //     $data[''] = $resultJoin[3];
+
+        // }
+        
+        $this->view("ShowJoin",$data);
+    }
+    
+    
     
 }
 
