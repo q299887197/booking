@@ -1,3 +1,8 @@
+<?php
+if($data["alert"])
+echo "<script language='javascript'> alert('{$data['alert']}'); </script>";
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -8,45 +13,46 @@
   
   <body>
      <h1 style="color: red;" align="center">Activity</h1>
-      <form id="form1" name="form1" method="post" action="<?= $root ?>/New/NewActivity">
+      <form id="form1" name="form1" method="post" action="<?= $root ?>/Member/iWantGO">
         <table width="320" border="1" align="center" cellpadding="5" cellspacing="0" bgcolor="#000000">
           <tr>
             <td colspan="2" align="center" bgcolor="#77FF00"><font color="#000000">我要參加活動</font></td>
           </tr>
           <tr>
+            <input type="hidden" name="ActID" value="<?= $data['id'] ?>">
             <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">活動名稱</font></td>
-            <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?php ?></font></td>
+            <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $data['ActivityName'] ?></font></td>
             <!--<td valign="baseline" bgcolor="#FFFFFF"><input type="text" name="ActivityName" id="ActivityName" value=""  style= "color:#000000" readonly /></td>-->
           </tr>
           <tr>
             <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">總人數限制</font></td>
-            <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?php ?></font></td>
+            <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $data['MaxPeople'] ?></font></td>
             <!--<td valign="baseline" bgcolor="#FFFFFF"><input type="text" name="MaxPeople" id="MaxPeople" value="" style= "color:#000000" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" onafterpaste="this.value=this.value.replace(/[^\d]/g,'')" /></td>-->
           </tr>
           <tr>
             <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">開始報名 時間</font></td>
-            <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?php ?></font></td>
+            <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $data['StartTime'] ?></font></td>
             <!--<td valign="baseline" bgcolor="#FFFFFF"><input type="date" name="StartTime" id="StartTime" value="" style= "color:#000000" /></td>-->
           </tr>
           <tr>
             <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">截止報名 時間</font></td>
-            <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?php ?></font></td>
+            <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $data['EndTime'] ?></font></td>
             <!--<td valign="baseline" bgcolor="#FFFFFF"><input type="date" name="EndTime" id="EndTime" value="" style= "color:#000000" /></td>-->
           </tr>
           <tr>
-            <td colspan="2" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">&nbsp</font></td>
+            <td colspan="2" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">請輸入您的員工資料</font></td>
           </tr>
           <tr>
             <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">員工編號</font></td>
             <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">員工名字</font></td>
           </tr>
           <tr>
-            <td valign="baseline" bgcolor="#FFFFFF"><input type="text" name="ActivityName" id="ActivityName" value=""  style= "color:#000000"  /></td>
-            <td valign="baseline" bgcolor="#FFFFFF"><input type="text" name="ActivityName" id="ActivityName" value=""  style= "color:#000000"  /></td>
+            <td valign="baseline" bgcolor="#FFFFFF"><input type="text" name="JoinManID" id="JoinManID" value=""  style= "color:#000000"  placeholder="請輸入編號"  /></td>
+            <td valign="baseline" bgcolor="#FFFFFF"><input type="text" name="JoinManName" id="JoinManName" value=""  style= "color:#000000"  placeholder="請輸入名字"  /></td>
           </tr>
           <tr>
             <td colspan="2" align="center" bgcolor="#77FF00">
-            <input type="submit" name="Newbtn" id="Newbtn" value="我要參加"   style=background-color:pink;color:#000000 />
+            <input type="submit" name="iwant" id="iwant" value="我要參加"   style=background-color:pink;color:#000000 />
             </td>
           </tr>
         </table>
