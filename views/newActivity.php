@@ -4,9 +4,25 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>建立新活動</title>
+    <link href="<?= $cssRoot ?>/bootstrap.min.css" rel="stylesheet">
   </head>
   
   <body>
+    
+    <header>		
+			<div class="navbar-collapse collapse">							
+				<div class="menu">
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation"><a href="<?= $root ?>/New/Activity">建立新活動</a></li>
+						<li role="presentation"><a href="<?= $root ?>#">編輯報表</a></li>
+						<li role="presentation"><a href="<?= $root ?>#">查看所有活動</a></li>								
+						<!--<li role="presentation"><a href="<?= $root ?>#">服務據點</a></li>-->
+						<!--<li role="presentation"><a href="<?= $root ?>#">會員專區</a></li>-->
+					</ul>
+				</div>
+			</div>						
+	  </header>
+	  
      <h1 style="color: red;" align="center">New Activity</h1>
       <form id="form1" name="form1" method="post" action="<?= $root ?>/New/NewActivity">
         <table width="320" border="1" align="center" cellpadding="5" cellspacing="0" bgcolor="#000000">
@@ -18,7 +34,7 @@
             <td valign="baseline" bgcolor="#FFFFFF"><input type="text" name="ActivityName" id="ActivityName" value=""  style= "color:#000000" /></td>
           </tr>
           <tr>
-            <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">人數限制(總數量)</font></td>
+            <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">總人數</font></td>
             <td valign="baseline" bgcolor="#FFFFFF"><input type="text" name="MaxPeople" id="MaxPeople" value="" style= "color:#000000" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" onafterpaste="this.value=this.value.replace(/[^\d]/g,'')" /></td>
           </tr>
           <tr>
@@ -26,9 +42,7 @@
             <td valign="baseline" bgcolor="#FFFFFF">
               <input type=radio value="PartnerNO" name="Partner" id="PartnerNO" checked ><font color="red"> 不能</font>  <!-- checked 為預設選項 -->
               <input type=radio value="PartnerOK" name="Partner" id="PartnerOK"><font color="red"> 可以</font>
-              <script type="text/javascript" src="">
-                  var OKorNO = document.getElementsByName("Partner").value; 
-              </script>
+              <br>
               <input type="text" name="MaxPartner" id="MaxPartner" value="" style= "color:#000000; width:100px" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" onafterpaste="this.value=this.value.replace(/[^\d]/g,'')" />攜伴人數限制</td>
           </tr>
           <tr>

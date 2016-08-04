@@ -1,6 +1,7 @@
 <?php
 if($data["alert"])
 echo "<script language='javascript'> alert('{$data['alert']}'); </script>";
+
 // foreach($data as $row);
 
 ?>
@@ -9,12 +10,25 @@ echo "<script language='javascript'> alert('{$data['alert']}'); </script>";
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>建立新活動</title>
+    <title>活動詳細內容</title>
     <link href="<?= $cssRoot ?>/bootstrap.min.css" rel="stylesheet">
   </head>
   
   
   <body>
+    <header>		
+			<div class="navbar-collapse collapse">							
+				<div class="menu">
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation"><a href="<?= $root ?>/New/Activity">建立新活動</a></li>
+						<li role="presentation"><a href="<?= $root ?>#">編輯報表</a></li>
+						<li role="presentation"><a href="<?= $root ?>#">查看所有活動</a></li>								
+						<!--<li role="presentation"><a href="<?= $root ?>#">服務據點</a></li>-->
+						<!--<li role="presentation"><a href="<?= $root ?>#">會員專區</a></li>-->
+					</ul>
+				</div>
+			</div>						
+	  </header>
 
     <div class="row">
     <div class="col-md-4">
@@ -32,11 +46,11 @@ echo "<script language='javascript'> alert('{$data['alert']}'); </script>";
             <td valign="baseline" bgcolor="#FFFFFF"><input type="text" value="<?= $data['ActivityName'] ?>"  style= "color:#000000" /></td>
           </tr>
           <tr>
-            <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">人數限制(總數量)</font></td>
+            <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">總人數限制</font></td>
             <td valign="baseline" bgcolor="#FFFFFF"><input type="text" value="<?= $data['MaxPeople'] ?>" style= "color:#000000" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" onafterpaste="this.value=this.value.replace(/[^\d]/g,'')" /></td>
           </tr>
           <tr>
-            <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">是否可攜伴</font></td>
+            <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">攜伴</font></td>
             <td valign="baseline" bgcolor="#FFFFFF">
               <input type=radio value="PartnerNO" name="Partner" id="PartnerNO"><font color="red"> 不能</font>
               <input type=radio value="PartnerOK" name="Partner" id="PartnerOK"><font color="red"> 可以</font>
@@ -71,8 +85,8 @@ echo "<script language='javascript'> alert('{$data['alert']}'); </script>";
           </tr>
           <?php foreach( $data['join'] as $row ){ ?>
           <tr>
-            <td width="80" valign="baseline" bgcolor="#FFFFFF"><input type="text" value="<?= $row[2] ?>" style= "color:#000000" readonly /></td>
-            <td width="80" valign="baseline" bgcolor="#FFFFFF"><input type="text" value="<?= $row[3] ?>" style= "color:#000000" readonly /></td>
+            <td valign="baseline" bgcolor="#FFFFFF"><input type="text"value="<?= $row[2] ?>"  style= "color:#000000" readonly /></td>
+            <td valign="baseline" bgcolor="#FFFFFF"><input type="text"value="<?= $row[3] ?>"  style= "color:#000000" readonly /></td>
           </tr>
          <?php }  ?>
           <tr>

@@ -40,8 +40,11 @@ class Activity {
     ///=================================================================
     ////  新增活動資訊 再查詢本次新增內容  INSERT  and  SELECT
     ///=================================================================
-    function InsertActivity($ActivityName,$MaxPeople,$MaxPartner=0,$StartTime,$EndTime){
+    function InsertActivity($ActivityName,$MaxPeople,$MaxPartner=0,$StartTime,$EndTime,$Partner){
         $dbh = $this->dbh ;
+        if($Partner == "PartnerNO") {
+            $MaxPartner=0;
+        }
         // 新增活動內容到資料庫
         $sth = $dbh->prepare("INSERT INTO `NewActivity` (`ActivityName`,`MaxPeople`,`MaxPartner`,`StartTime`,`EndTime`)
  									VALUES (?, ?, ?, ?, ?)");
@@ -63,7 +66,7 @@ class Activity {
     }
     
     ///=================================================================
-    ////  新增活動資訊 再查詢本次新增內容  INSERT  and  SELECT
+    ////  新增屬於本次活動可以參加的成員   INSERT
     ///=================================================================
     function InsertPeople($resultName,$resultConrent,$resultActivityID){
         $dbh = $this->dbh ;
@@ -75,14 +78,13 @@ class Activity {
             $sth->bindParam(1, $resultActivityID);
             $sth->bindParam(2, $resultName);
             $sth->bindParam(3, $resultConrent[$i]);
-            // $dbh = null;
-            $result = $sth->execute();
+            
+            $sth->execute();
+
             $i++;
-            if($result)
-                return $data['alert'] = "新增成功";
-            else
-                return $data['alert'] = "新增失敗";
         }
+        $dbh = null;
+        return $result = "OK";
     }
     
     
