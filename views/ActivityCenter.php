@@ -1,6 +1,6 @@
 <?php
-if($data["alert"])
-echo "<script language='javascript'> alert('{$data['alert']}'); </script>";
+// if($data["alert"])
+// echo "<script language='javascript'> alert('{$data['alert']}'); </script>";
 ?>
 
 <!DOCTYPE html>
@@ -26,28 +26,32 @@ echo "<script language='javascript'> alert('{$data['alert']}'); </script>";
     <!--</header>-->
 
      <h1 style="color: red;" align="center">活動</h1>
-        <table width="320" border="1" align="center" cellpadding="5" cellspacing="0" bgcolor="#000000">
+        <table border="1" align="center" cellpadding="5" cellspacing="0" bgcolor="#000000">
           <tr>
-            <td colspan="2" align="center" bgcolor="#77FF00"><font color="#000000">活動資訊</font></td>
+            <td colspan="6" align="center" bgcolor="#77FF00"><font color="#000000">活動資訊</font></td>
           </tr>
           <tr>
-            <td height="30" colspan="2" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">活動名稱</font></td>
-            <td height="30" colspan="2" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">總人數</font></td>
-            <td height="30" colspan="2" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">攜伴</font></td>
-            <td height="30" colspan="2" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">開始時間</font></td>
-            <td height="30" colspan="2" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">結束時間</font></td>
-            <td height="30" colspan="2" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">報名連結</font></td>
+            <td height="30" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">活動名稱</font></td>
+            <td height="30" width="60" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">總人數</font></td>
+            <td height="30" width="60" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">攜伴</font></td>
+            <td height="30" width="110" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">開始時間</font></td>
+            <td height="30" width="110" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">結束時間</font></td>
+            <td height="30" width="70" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">報名連結</font></td>
           </tr>
-          <?php foreach($data as $row): ?>
+          <?php 
+
+          foreach($data['AllActivity'] as $row){
+            if( $row['StartTime'] <= $data['date']  ){
+          ?>
           <tr>
-            <td height="30" colspan="2" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $data['ActivityName'] ?></font></td>
-            <td height="30" colspan="2" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $data['MaxPeople'] ?></font></td>
-            <td height="30" colspan="2" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $data['MaxPartner'] ?></font></td>
-            <td height="30" colspan="2" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $data['StartTime'] ?></font></td>
-            <td height="30" colspan="2" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $data['ActivityURL'] ?></font></td>
-            <td height="30" colspan="2" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><a href="<?= $data['ActivityURL'] ?>"><?= $data['ActivityURL'] ?></a></font></td>
+            <td height="30" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $row['ActivityName'] ?></font></td>
+            <td height="30" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $row['MaxPeople'] ?></font></td>
+            <td height="30" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?php if($row['MaxPartner'] >0 ) echo "可";  else echo "不能";  ?></font></td>
+            <td height="30" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $row['StartTime'] ?></font></td>
+            <td height="30" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $row['EndTime'] ?></font></td>
+            <td height="30" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><a href="<?= $row['ActivityURL'] ?>"><img src="<?= $imgRoot?>images/net.png" height="30" width="30"></a></font></td>
           </tr>
-          <?php endif ?>
+          <?php }} ?>
 
         </table>
 

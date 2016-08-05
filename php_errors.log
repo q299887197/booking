@@ -19,3 +19,4 @@
 [03-Aug-2016 02:16:07 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/booking/views/activityPeople.php on line 2
 [03-Aug-2016 02:16:07 UTC] PHP Stack trace:
 [03-Aug-2016 02:16:07 UTC] PHP   1. {main}() /home/ubuntu/workspace/booking/views/activityPeople.php:0
+[04-Aug-2016 10:02:21 UTC] PHP Parse error:  syntax error, unexpected 'endif' (T_ENDIF) in /home/ubuntu/workspace/booking/views/ActivityCenter.php on line 50

@@ -5,25 +5,16 @@ class MemberController extends Controller
     ///=================================================================
     ////  給員工看到的參加活動頁面
     ///=================================================================
-    function iwantJoin(){
+    function iwantJoin(){   //近來顯示相對應的活動資訊
         if($_GET["id"]){
             $Activit = $this->model("MemberJoin");
             $result = $Activit->SelectActivityID($_GET["id"]);
-            
             foreach($result as $data);
-                $data['id'] = $data['0'] ;
-                $data['ActivityName'] = $data['1'] ;
-                $data['MaxPeople'] = $data['2'] ;
-                $data['MaxPartner'] = $data['3'] ;
-                $data['StartTime'] = $data['4'] ;
-                $data['EndTime'] = $data['5'] ;
-                $data['ActivityURL'] = $data['6'] ;
-                $data['JoinNumber'] = $data['6'] ;
             }
         $this->view("iwantJoin",$data);
     }
     
-    function iWantGO(){
+    function iWantGO(){   //按下我要參加的動作
         $People = $this->model("MemberJoin");
         // $JoinID = $_POST['JoinID'];
         // $JoinName = $_POST['JoinName'];
@@ -39,8 +30,17 @@ class MemberController extends Controller
         	    $this->view("iwantJoin",$result);
         	}
         
-        
-        
+    }
+    
+    ///=================================================================
+    ////  給員工看到的 所有活動頁面
+    ///=================================================================
+    function ActivityCenter(){
+        $AllActivity = $this->model("MemberJoin");
+        $data['date'] = date("Y-m-d");
+        $data['AllActivity'] = $AllActivity->SelectAllActivity();
+
+        $this->view("ActivityCenter",$data);
     }
     
     

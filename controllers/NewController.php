@@ -9,22 +9,13 @@ class NewController extends Controller
         $this->view("newActivity");
     }
     
-    function NewActivity(){
-        $Insert = $this->model("Activity");
-        $result = $Insert->InsertActivity($_POST['ActivityName'],$_POST['MaxPeople'],$_POST['MaxPartner'],$_POST['StartTime'],$_POST['EndTime'],$_POST['Partner']);
-        foreach($result as $data);
-        
-        $data['ActivityID'] = $data[0] ;
-        $data['ActivityName'] = $data[1] ;
-        $data['MaxPeople'] = $data[2] ;
-        $data['MaxPartner'] = $data[3] ;
-        $data['StartTime'] = $data[4] ;
-        $data['EndTime'] = $data[5] ;
-        $data['ActivityURL'] = "https://lab-bob-chen.c9users.io/booking/Member/iwantJoin?id=".$data[0]."";
-        
-        $data['Partner'] = $_POST['Partner'];
+    function NewActivity(){ //點擊 新增活動
+        $Activity = $this->model("Activity");
+        $resultID = $Activity->InsertActivity($_POST['ActivityName'],$_POST['MaxPeople'],$_POST['MaxPartner'],$_POST['StartTime'],$_POST['EndTime'],$_POST['Partner']);//新增活動
+        $data['ActivityRecord'] = $Activity->SelectActivityID($resultID); // 查詢活動所有內容
+        $data['Partner'] = $_POST['Partner']; //判讀是否可攜伴
 
-        $this->view("activityPeople",$data);
+        $this->view("activityPeople",$data); //導頁至 新增人員
     }
     
     
@@ -41,7 +32,7 @@ class NewController extends Controller
         $IntPeople = $this->model("Activity");
         $result = $IntPeople -> InsertPeople($_POST['name'],$_POST['content'],$_POST['ActivityID']); // 員工名字 編號 活動ID
         if($result == "OK"){
-        $this->NewActOK($_POST['ActivityID']);
+        $this->NewActOK($_POST['ActivityID']); //導頁至 顯示資料 完成所有新增活動
         }
         
     }

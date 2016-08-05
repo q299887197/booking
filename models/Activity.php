@@ -38,7 +38,7 @@ class Activity {
 
  
     ///=================================================================
-    ////  新增活動資訊 再查詢本次新增內容  INSERT  and  SELECT
+    ////  新增活動資訊 再將網址更新上去  INSERT  and  UPDATE
     ///=================================================================
     function InsertActivity($ActivityName,$MaxPeople,$MaxPartner=0,$StartTime,$EndTime,$Partner){
         $dbh = $this->dbh ;
@@ -48,21 +48,32 @@ class Activity {
         // 新增活動內容到資料庫
         $sth = $dbh->prepare("INSERT INTO `NewActivity` (`ActivityName`,`MaxPeople`,`MaxPartner`,`StartTime`,`EndTime`)
  									VALUES (?, ?, ?, ?, ?)");
+ 									
         $sth->bindParam(1, $ActivityName);
         $sth->bindParam(2, $MaxPeople);
         $sth->bindParam(3, $MaxPartner);
         $sth->bindParam(4, $StartTime);
         $sth->bindParam(5, $EndTime);
-        // $dbh = null;
         $sth->execute();
         
-        // 將新增到資料庫的活動內容 查詢取 id
-        $slet = $dbh->prepare("SELECT * FROM `NewActivity` WHERE `ActivityName` = :ActivityName");
-        $slet->bindParam(':ActivityName', $ActivityName);
-        $slet->execute();
-        $dbh = null;
+        $lastId = $dbh->lastInsertId(); //查詢本次做完的最後一筆 id
         
-        return $slet->fetchAll();
+        $ActivityURL= "https://lab-bob-chen.c9users.io/booking/Member/iwantJoin?id=".$lastId."";
+        
+        $UPth = $dbh->prepare("UPDATE `NewActivity` SET `ActivityURL` = :ActivityURL  WHERE `id`= :ActID");
+        $UPth->bindParam(':ActivityURL', $ActivityURL );
+        $UPth->bindParam(':ActID', $lastId );
+        $UPth->execute();
+        
+        $dbh = null;
+
+        // 將新增到資料庫的活動內容 查詢取 id
+        // $slet = $dbh->prepare("SELECT * FROM `NewActivity` WHERE `ActivityName` = :ActivityName");
+        // $slet->bindParam(':ActivityName', $ActivityName);
+        // $slet->execute();
+        // $dbh = null;
+        
+        return $lastId;  //傳回本次 ID
     }
     
     ///=================================================================

@@ -1,10 +1,5 @@
 <?php
-if($data["alert"]){
-echo "<script language='javascript'> alert('{$data['alert']}'); </script>";}
-
-
-foreach($data as $row);
-
+foreach($data['ActivityRecord'] as $data);
 ?>
 <!DOCTYPE html>
 <html>
@@ -39,7 +34,7 @@ foreach($data as $row);
           </tr>
           <tr>
             <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">活動報表編號</font></td>
-            <td width="80" height="30" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $data['ActivityID'] ?></font></td>
+            <td width="80" height="30" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000"><?= $data['id'] ?></font></td>
           </tr>
           <tr>
             <td width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">活動名稱</font></td>
@@ -75,7 +70,7 @@ foreach($data as $row);
       <form id="form1" name="form1" method="post" action="<?= $root ?>/New/NewPersonnel">
         <table id="mytable" width="400" border="1" align="center" cellpadding="5" cellspacing="0" bgcolor="#000000">
           <tr>
-            <input type="hidden" name="ActivityID" value="<?= $data['ActivityID'] ?>">
+            <input type="hidden" name="ActivityID" value="<?= $data['id'] ?>">
             <input type="hidden" name="ActivityName" value="<?= $data['ActivityName'] ?>">
             <input type="hidden" name="MaxPeople" value="<?= $data['MaxPeople'] ?>">
             <input type="hidden" name="MaxPartner" value="<?= $data['MaxPartner'] ?>">
@@ -83,7 +78,7 @@ foreach($data as $row);
             <input type="hidden" name="EndTime" value="<?= $data['EndTime'] ?>">
             <input type="hidden" name="ActivityURL" value="<?= $data['ActivityURL'] ?>">
             <input type="hidden" name="Partner" value="<?= $data['Partner'] ?>">
-            <td colspan="2" align="center" bgcolor="#77FF00"><font color="#000000">活動編號_<?= $data['ActivityID'] ?></font></td>
+            <td colspan="2" align="center" bgcolor="#77FF00"><font color="#000000">活動編號_<?= $data['id'] ?></font></td>
           </tr>
           <tr>
             <td colspan="2" align="center" bgcolor="#77FF00"><font color="#000000">可以參加的人員</font></td>

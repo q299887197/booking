@@ -63,7 +63,7 @@ class MemberJoin {
     }
     
     ///=================================================================
-    ////  判斷活動是否還有空位可以參加  參加的話給予此人有參加證明 +1 及 YES   UPDATE
+    ////  判斷活動是否還有空位可以參加  參加的話給予此人有參加證明 參加人數+1 及 YES   UPDATE
     ///=================================================================
     function UpdateJoinNumber($ActID,$id){ //活動ID  , 登記人的ID 
         $dbh = $this->dbh;
@@ -93,6 +93,19 @@ class MemberJoin {
         }
     }
     
+    
+    ///=================================================================
+    ////  用id編號 查員工是否有資格參加活動   SELECT
+    ///=================================================================
+    function SelectAllActivity(){
+        $db = $this->dbh;
+        $select = $db->prepare("SELECT * FROM `NewActivity` ");
+        $select->execute();
+        // var_dump($select->fetchAll());
+        // exit;
+        return $select->fetchAll();
+
+    }
     
 }
 
