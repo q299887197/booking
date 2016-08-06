@@ -14,10 +14,8 @@
 				<div class="menu">
 					<ul class="nav nav-tabs" role="tablist">
 						<li role="presentation"><a href="<?= $root ?>/New/Activity">建立新活動</a></li>
-						<li role="presentation"><a href="<?= $root ?>#">編輯報表</a></li>
-						<li role="presentation"><a href="<?= $root ?>#">查看所有活動</a></li>								
-						<!--<li role="presentation"><a href="<?= $root ?>#">服務據點</a></li>-->
-						<!--<li role="presentation"><a href="<?= $root ?>#">會員專區</a></li>-->
+						<li role="presentation"><a href="<?= $root ?>/New/ShowALL">查看所有活動</a></li>				
+
 					</ul>
 				</div>
 			</div>						

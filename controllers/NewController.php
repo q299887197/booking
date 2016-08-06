@@ -22,72 +22,35 @@ class NewController extends Controller
     ///=================================================================
     ////  新增人員 畫面
     ///=================================================================    
-    
-    function Personnel(){
-        $this->view("activityPeople");
-    }
-    
-    
     function NewPersonnel(){  //點擊 新增人員
         $IntPeople = $this->model("Activity");
         $result = $IntPeople -> InsertPeople($_POST['name'],$_POST['content'],$_POST['ActivityID']); // 員工名字 編號 活動ID
         if($result == "OK"){
         $this->NewActOK($_POST['ActivityID']); //導頁至 顯示資料 完成所有新增活動
         }
-        
     }
     
-    
+
     ///=================================================================
     ////  新增完成後 顯示資料
     ///================================================================= 
     function NewActOK($ActivityID){
         $SelectActivity = $this->model("Activity");
-        $resultActivity = $SelectActivity->SelectActivityID($ActivityID); // 用ID 查詢活動內容
-        $result = $SelectActivity->SelectActivity($ActivityID);   // 用ID查詢可以參加的人
-        
-        foreach($resultActivity as $data);
-        $data['id'] = $data[0];
-        $data['ActivityName'] = $data[1];
-        $data['MaxPeople'] = $data[2];
-        $data['MaxPartner'] = $data[3];
-        $data['StartTime'] = $data[4];
-        $data['EndTime'] = $data[5];
-        // $data['ActivityURL'] = $data[6];
-        $data['ActivityURL'] = "https://lab-bob-chen.c9users.io/booking/Member/iwantJoin?id=".$data[0]."";
-        $data['join'] = $result;
+        $data['ActivityRecord'] = $SelectActivity->SelectActivityID($ActivityID); // 用ID 查詢活動內容
+        $data['join'] = $SelectActivity->SelectActivity($ActivityID);   // 用ID查詢可以參加的人
+        $data['Partner'] = $_POST['Partner'];
+
         $this->view("NewActOK",$data);
     }
     
-    
-    
     ///=================================================================
-    ////  顯示資料
+    ////  顯示全部活動
     ///================================================================= 
-    
-    function ShowActivity(){
-        $SelectActivity = $this->model("Activity");
-        $resultActivity = $SelectActivity->SelectActivityID(29);
-        $result = $SelectActivity->SelectActivity(29);
-        
-        foreach($resultActivity as $data);
-        $data['id'] = $data[0];
-        $data['ActivityName'] = $data[1];
-        $data['MaxPeople'] = $data[2];
-        $data['MaxPartner'] = $data[3];
-        $data['StartTime'] = $data[4];
-        $data['EndTime'] = $data[5];
-        $data['ActivityURL'] = $data[6];
-        $data['join'] = $result;
+    function ShowALL(){
+        $AllActivity = $this->model("Activity");
+        $data = $AllActivity->SelectActivityALL();
 
-        // foreach($resultJoin as $data){
-        //     $data[''] = $resultJoin[1];
-        //     $data[''] = $resultJoin[2];
-        //     $data[''] = $resultJoin[3];
-
-        // }
-        
-        $this->view("ShowJoin",$data);
+        $this->view("ShowAllActivity",$data);
     }
     
     

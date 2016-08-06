@@ -13,6 +13,19 @@ class Activity {
     ///=================================================================
     ////  用id編號 查活動資訊   SELECT
     ///=================================================================
+    function SelectActivityALL(){
+        $dbh = $this->dbh ;
+        $slet = $dbh->prepare("SELECT * FROM `NewActivity`");
+        $slet->execute();
+        $dbh = null;
+        
+        return $slet->fetchAll();
+    }
+    
+    
+    ///=================================================================
+    ////  用id編號 查活動資訊   SELECT
+    ///=================================================================
     function SelectActivityID($id){
         $dbh = $this->dbh ;
         $slet = $dbh->prepare("SELECT * FROM `NewActivity` WHERE `id` = :ActivityID");
@@ -48,7 +61,6 @@ class Activity {
         // 新增活動內容到資料庫
         $sth = $dbh->prepare("INSERT INTO `NewActivity` (`ActivityName`,`MaxPeople`,`MaxPartner`,`StartTime`,`EndTime`)
  									VALUES (?, ?, ?, ?, ?)");
- 									
         $sth->bindParam(1, $ActivityName);
         $sth->bindParam(2, $MaxPeople);
         $sth->bindParam(3, $MaxPartner);
@@ -58,20 +70,17 @@ class Activity {
         
         $lastId = $dbh->lastInsertId(); //查詢本次做完的最後一筆 id
         
-        $ActivityURL= "https://lab-bob-chen.c9users.io/booking/Member/iwantJoin?id=".$lastId."";
+        $IDmd5 = md5($lastId);
         
-        $UPth = $dbh->prepare("UPDATE `NewActivity` SET `ActivityURL` = :ActivityURL  WHERE `id`= :ActID");
+        $ActivityURL= "https://lab-bob-chen.c9users.io/booking/Member/iwantJoin?id=".$IDmd5."";
+        
+        $UPth = $dbh->prepare("UPDATE `NewActivity` SET `ActivityURL` = :ActivityURL , `RandURL` = :RandURL   WHERE `id`= :ActID");
         $UPth->bindParam(':ActivityURL', $ActivityURL );
+        $UPth->bindParam(':RandURL', $IDmd5 );
         $UPth->bindParam(':ActID', $lastId );
         $UPth->execute();
         
         $dbh = null;
-
-        // 將新增到資料庫的活動內容 查詢取 id
-        // $slet = $dbh->prepare("SELECT * FROM `NewActivity` WHERE `ActivityName` = :ActivityName");
-        // $slet->bindParam(':ActivityName', $ActivityName);
-        // $slet->execute();
-        // $dbh = null;
         
         return $lastId;  //傳回本次 ID
     }
@@ -97,6 +106,31 @@ class Activity {
         $dbh = null;
         return $result = "OK";
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    function test(){
+        
+        for($i=1;$i<=1;$i++){  //產生1個
+        $b=rand(0000,9999);  //產生亂數
+            for($j=1;$j<=$i;$j++){  //檢查重覆
+                if($b==$a[$j]){
+                    $b=rand(0000,9999);  //如果重覆，重新產生亂數
+                    $j=0;
+                }
+            }
+        }
+        
+    }
+    
     
     
 }

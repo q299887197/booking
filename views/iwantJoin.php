@@ -1,6 +1,8 @@
 <?php
 if($data["alert"])
 echo "<script language='javascript'> alert('{$data['alert']}'); </script>";
+
+// if($data['StartTime'])
 ?>
 
 <!DOCTYPE html>
