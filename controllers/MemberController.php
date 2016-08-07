@@ -17,10 +17,12 @@ class MemberController extends Controller
     function iWantGO(){   //按下我要參加的動作
     
         $People = $this->model("MemberJoin");
+        // var_dump($_POST['JionPartenr']);
+        // exit;
 
-        $data = $People->SelectJoinPeople($_POST['JoinManID'], $_POST['JoinManName'], $_POST['ActID']);
+        $data = $People->SelectJoinPeople($_POST['JoinManID'], $_POST['JoinManName'], $_POST['JionPartenr'], $_POST['ActID']); //參加人ID 名字 攜伴人數 , 活動ID
 
-         $this->ActivityCenter($data);
+        $this->ActivityCenter($data);
         
     }
     

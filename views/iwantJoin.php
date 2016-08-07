@@ -53,6 +53,20 @@ echo "<script language='javascript'> alert('{$data['alert']}'); </script>";
             <td valign="baseline" bgcolor="#FFFFFF"><input type="text" name="JoinManName" id="JoinManName" value=""  style= "color:#000000"  placeholder="請輸入名字"  /></td>
           </tr>
           <tr>
+            <td colspan="2" width="80" align="center" valign="baseline" bgcolor="#FFFFFF"><font color="#000000">攜伴</font></td>
+          </tr>
+          <tr>
+            <td colspan="2" valign="baseline" bgcolor="#FFFFFF">
+              <center>
+                <select name="JionPartenr" style="width:250px;">
+                  <?php for($i=0;$i<=$data['MaxPartner'];$i++){ ?>
+                　<option value="<?= $i ?>"><?= $i ?></option>
+                　<?php } ?>
+                </select>
+              </center>
+            </td>
+          </tr>
+          <tr>
             <td colspan="2" align="center" bgcolor="#77FF00">
             <input type="submit" name="iwant" id="iwant" value="我要參加"   style=background-color:pink;color:#000000 />
             </td>
