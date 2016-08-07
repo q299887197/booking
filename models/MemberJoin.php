@@ -20,8 +20,22 @@ class MemberJoin {
         $slet->bindParam(':RandURL', $RandURL);
         $slet->execute();
         $dbh = null;
+        foreach($slet->fetchAll() as $data);
+        $data['date'] = date("Y-m-d");
         
-        return $slet->fetchAll();
+        // var_dump($data);
+        //     exit;
+        if($data["StartTime"] <= $data['date'] && $data["EndTime"] >= $data['date'] ){  //活動可以報名
+            $data["joinOK"] = "OK";
+        }
+        elseif($data["StartTime"] > $data['date'] && $data["EndTime"] > $data['StartTime']){ //還沒開始
+            $data["display"] = "活動還沒開始報名唷!";
+        }
+        elseif($data["StartTime"] < $data['EndTime'] && $data["EndTime"] < $data['date']){  //活動報名已過期
+            $data["display"] = "抱歉,活動報名時間已過";
+        }
+        
+        return $data;
     }
     
     
@@ -44,8 +58,6 @@ class MemberJoin {
     ///=================================================================
     function SelectJoinPeople($JoinManID,$JoinManName,$JoinPartenr,$ActID){   //參加人ID , Name , 攜伴人數 , 活動編號ID
      $dbh = $this->dbh ;
-    //  var_dump($JionPartenr);
-    //  exit;
         // try{
            
             
@@ -59,8 +71,6 @@ class MemberJoin {
                     if($row[2] == $JoinManID  && $row[3] == $JoinManName ){   //判斷是否編號 名字相同
                         if($row[4]==NULL){
                             $UPDateresult=$this->UpdateJoinNumber($ActID,$row[0],$JoinPartenr);   //活動ID  , 登記人的ID 攜伴人數
-                            // var_dump($UPDateresult);
-                            // exit;
                             if($UPDateresult == "OK"){
                                 $result["join"]="OK";
                                 $result["alert"] = "報名成功!";

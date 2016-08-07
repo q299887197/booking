@@ -1,7 +1,9 @@
 <?php
-if($data["alert"])
-echo "<script language='javascript'> alert('{$data['alert']}'); </script>";
-
+if($data["display"]){
+// echo "<script language='javascript'> alert('{$data['alert']}'); </script>";
+echo $data["display"];
+exit;
+}
 // if($data['StartTime'])
 ?>
 

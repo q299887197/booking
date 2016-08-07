@@ -6,12 +6,27 @@ class MemberController extends Controller
     ////  給員工看到的參加活動頁面
     ///=================================================================
     function iwantJoin(){   //近來顯示相對應的活動資訊
-        if($_GET["id"]){
+        if($_GET["id"]){ 
             $Activit = $this->model("MemberJoin");
             $result = $Activit->SelectActivityGET($_GET["id"]);
-            foreach($result as $data);
+            
+            // foreach($result as $data);
+            
+            // var_dump($result);
+            // exit;
+            if($result["joinOK"] == "OK"){
+                $this->view("iwantJoin",$result);
             }
-        $this->view("iwantJoin",$data);
+            elseif($result["display"]){
+                $this->view("iwantJoin",$result);
+            }
+            
+            // var_dump($data['date']);
+            // exit;
+            
+            
+            }
+        
     }
     
     function iWantGO(){   //按下我要參加的動作
