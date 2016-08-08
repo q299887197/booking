@@ -12,14 +12,15 @@ class NewController extends Controller
     function NewActivity(){ //點擊 新增活動
         $Activity = $this->model("Activity");
         $resultID = $Activity->InsertActivity($_POST['ActivityName'],$_POST['MaxPeople'],$_POST['MaxPartner'],$_POST['StartTime'],$_POST['EndTime'],$_POST['Partner']);//新增活動
-        
-        if($resultID['alert']){
-            $this->view("newActivity",$resultID); //輸入有誤 一樣在本頁
+        // var_dump($resultID['alert']);
+        // exit;
+        if($resultID['OK']=="OK"){
+            $data['ActivityRecord'] = $Activity->SelectActivityID($resultID['Id']); // 查詢活動所有內容
+            $data['Partner'] = $_POST['Partner']; //判讀是否可攜伴
+            $this->view("activityPeople",$data); //導頁至 新增人員
         }
         else{
-            $data['ActivityRecord'] = $Activity->SelectActivityID($resultID); // 查詢活動所有內容
-            $data['Partner'] = $_POST['Partner']; //判讀是否可攜伴
-            $this->view("newActivity",$data); //導頁至 新增人員
+            $this->view("newActivity",$resultID); //輸入有誤 一樣在本頁
         }
 
     }
@@ -31,7 +32,7 @@ class NewController extends Controller
     function NewPersonnel(){  //點擊 新增人員
         $IntPeople = $this->model("Activity");
         $result = $IntPeople -> InsertPeople($_POST['name'],$_POST['content'],$_POST['ActivityID']); // 員工名字 編號 活動ID
-        if($result == "OK"){
+        if($result == true){
         $this->NewActOK($_POST['ActivityID']); //導頁至 顯示資料 完成所有新增活動
         }
     }

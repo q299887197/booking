@@ -83,8 +83,9 @@ class Activity {
                 $UPth->execute();
                 
                 $dbh = null;
-                
-                return $lastId;  //傳回本次 ID
+                $data['OK']="OK";
+                $data['Id']=$lastId;
+                return $data;  //傳回本次 ID
             }
             else{
                 $data["alert"]="時間有誤";
@@ -104,6 +105,7 @@ class Activity {
         $dbh = $this->dbh ;
         $i=0;
         foreach($resultName as $resultName){
+            if($resultName!=null && $resultConrent!=null){ //新增人員表格有空值不新增置資料庫
             // 新增人員到資料庫
             $sth = $dbh->prepare("INSERT INTO `JoinPeople` (`ActivityID`,`MemberID`,`MemberName`)
      									VALUES (?, ?, ?)");
@@ -115,8 +117,9 @@ class Activity {
 
             $i++;
         }
+        }
         $dbh = null;
-        return $result = "OK";
+        return true;
     }
 
     
