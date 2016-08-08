@@ -12,10 +12,16 @@ class NewController extends Controller
     function NewActivity(){ //點擊 新增活動
         $Activity = $this->model("Activity");
         $resultID = $Activity->InsertActivity($_POST['ActivityName'],$_POST['MaxPeople'],$_POST['MaxPartner'],$_POST['StartTime'],$_POST['EndTime'],$_POST['Partner']);//新增活動
-        $data['ActivityRecord'] = $Activity->SelectActivityID($resultID); // 查詢活動所有內容
-        $data['Partner'] = $_POST['Partner']; //判讀是否可攜伴
+        
+        if($resultID['alert']){
+            $this->view("newActivity",$resultID); //輸入有誤 一樣在本頁
+        }
+        else{
+            $data['ActivityRecord'] = $Activity->SelectActivityID($resultID); // 查詢活動所有內容
+            $data['Partner'] = $_POST['Partner']; //判讀是否可攜伴
+            $this->view("newActivity",$data); //導頁至 新增人員
+        }
 
-        $this->view("activityPeople",$data); //導頁至 新增人員
     }
     
     

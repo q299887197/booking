@@ -1,3 +1,8 @@
+<?php
+if($data['alert']){
+echo "<script language='javascript'> alert('{$data['alert']}'); </script>";
+}
+?>
 <!DOCTYPE html>
 <html>
   <head>

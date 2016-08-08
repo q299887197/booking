@@ -58,31 +58,43 @@ class Activity {
         if($Partner == "PartnerNO") {
             $MaxPartner=0;
         }
-        // 新增活動內容到資料庫
-        $sth = $dbh->prepare("INSERT INTO `NewActivity` (`ActivityName`,`MaxPeople`,`MaxPartner`,`StartTime`,`EndTime`)
- 									VALUES (?, ?, ?, ?, ?)");
-        $sth->bindParam(1, $ActivityName);
-        $sth->bindParam(2, $MaxPeople);
-        $sth->bindParam(3, $MaxPartner);
-        $sth->bindParam(4, $StartTime);
-        $sth->bindParam(5, $EndTime);
-        $sth->execute();
-        
-        $lastId = $dbh->lastInsertId(); //查詢本次做完的最後一筆 id
-        
-        $IDmd5 = md5($lastId);
-        
-        $ActivityURL= "https://lab-bob-chen.c9users.io/booking/Member/iwantJoin?id=".$IDmd5."";
-        
-        $UPth = $dbh->prepare("UPDATE `NewActivity` SET `ActivityURL` = :ActivityURL , `RandURL` = :RandURL   WHERE `id`= :ActID");
-        $UPth->bindParam(':ActivityURL', $ActivityURL );
-        $UPth->bindParam(':RandURL', $IDmd5 );
-        $UPth->bindParam(':ActID', $lastId );
-        $UPth->execute();
-        
-        $dbh = null;
-        
-        return $lastId;  //傳回本次 ID
+        if($ActivityName!=null && $MaxPeople!=null && $StartTime!=null && $EndTime!=null){
+            if($StartTime <= $EndTime){ //判斷時間是否正確
+                // 新增活動內容到資料庫
+                $sth = $dbh->prepare("INSERT INTO `NewActivity` (`ActivityName`,`MaxPeople`,`MaxPartner`,`StartTime`,`EndTime`)
+         									VALUES (?, ?, ?, ?, ?)");
+                $sth->bindParam(1, $ActivityName);
+                $sth->bindParam(2, $MaxPeople);
+                $sth->bindParam(3, $MaxPartner);
+                $sth->bindParam(4, $StartTime);
+                $sth->bindParam(5, $EndTime);
+                $sth->execute();
+                
+                $lastId = $dbh->lastInsertId(); //查詢本次做完的最後一筆 id
+                
+                $IDmd5 = md5($lastId);
+                
+                $ActivityURL= "https://lab-bob-chen.c9users.io/booking/Member/iwantJoin?id=".$IDmd5."";
+                
+                $UPth = $dbh->prepare("UPDATE `NewActivity` SET `ActivityURL` = :ActivityURL , `RandURL` = :RandURL   WHERE `id`= :ActID");
+                $UPth->bindParam(':ActivityURL', $ActivityURL );
+                $UPth->bindParam(':RandURL', $IDmd5 );
+                $UPth->bindParam(':ActID', $lastId );
+                $UPth->execute();
+                
+                $dbh = null;
+                
+                return $lastId;  //傳回本次 ID
+            }
+            else{
+                $data["alert"]="時間有誤";
+                return $data;
+            }
+        }
+        else{
+            $data["alert"]="請輸入正確內容";
+            return $data;
+        }
     }
     
     ///=================================================================
@@ -106,30 +118,7 @@ class Activity {
         $dbh = null;
         return $result = "OK";
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    function test(){
-        
-        for($i=1;$i<=1;$i++){  //產生1個
-        $b=rand(0000,9999);  //產生亂數
-            for($j=1;$j<=$i;$j++){  //檢查重覆
-                if($b==$a[$j]){
-                    $b=rand(0000,9999);  //如果重覆，重新產生亂數
-                    $j=0;
-                }
-            }
-        }
-        
-    }
+
     
     
     
